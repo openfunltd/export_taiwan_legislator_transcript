@@ -1,8 +1,8 @@
 <?php
 
 class Downloader {
-    public static function downloadIvods($term) {
-        $url = "https://ly.govapi.tw/ivod?term=$term";
+    public static function downloadIvods($term, $session_period) {
+        $url = "https://ly.govapi.tw/ivod?term=$term&sessionPeriod=$session_period";
         $ch = curl_init();
         curl_setopt($ch , CURLOPT_URL , $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -43,6 +43,7 @@ class Downloader {
     public static function getDetailedIvodList() {
         $filenames = scandir('json/single/');
         $filenames = array_slice($filenames, 2);
+        //$filenames = ['150839.json']; //測試確認單一 ivod 資料用
         $detailed_ivods = [];
         foreach ($filenames as $filename) {
             $filepath = "json/single/$filename";
