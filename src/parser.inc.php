@@ -35,7 +35,7 @@ class Parser {
         foreach ($blocks as $block) {
             $block_contents[] = implode('', $block);
         }
-        $contents =  implode('', $block_contents);
+        $contents =  implode("\n", $block_contents);
         return $contents;
     }
 
