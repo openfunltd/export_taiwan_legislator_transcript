@@ -7,6 +7,7 @@ class Parser {
             //echo "$idx parsing ivod_id: $ivod->id" . "\n";
             $row = [];
             $row[] = $ivod->id; //ivod id
+            $row[] = $ivod->委員名稱; //發言委員名稱
             $row[] = self::getMeetName($ivod); //會議名稱（第11屆第1會期第17次會議）
 
             $subjects = self::getSubjects($ivod);

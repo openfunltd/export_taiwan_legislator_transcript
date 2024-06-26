@@ -3,8 +3,8 @@ include 'src/initialer.inc.php';
 include 'src/downloader.inc.php';
 include 'src/parser.inc.php';
 
-$term = 11;
-$session_period = 1;
+$term = 10;
+$session_period = 8;
 
 //下列三個 process 建議分開執行，不然會出現記憶體被消耗光的 error
 //因為不想浪費時間在解決記憶體的問題，所以建議先人工分開執行
@@ -25,6 +25,7 @@ $ivod_cnt = count($detailed_ivods);
 $fp = fopen("$term-$session_period.csv", 'w');
 $headers = [
     'ivod_id',
+    'legislator_name',
     'meet_name',
     'meet_subjects',
     'meet_date',
