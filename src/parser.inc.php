@@ -23,9 +23,8 @@ class Parser {
         return $csv_rows;
     }
 
-    public static function parseDigestComparison($ivods) {
+    public static function parseDigestComparison($ivods, $distinct_meet_names) {
         $csv_rows = [];
-        $distinct_meet_names = [];
         foreach ($ivods as $idx => $ivod) {
             $meet_name = $ivod->會議名稱;
             if (in_array($meet_name, $distinct_meet_names)) {
@@ -43,7 +42,7 @@ class Parser {
 
             $csv_rows[] = $row;
         }
-        return $csv_rows;
+        return [$csv_rows, $distinct_meet_names];
     }
 
     private static function getMeetName($ivod) {

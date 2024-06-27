@@ -27,9 +27,6 @@ class Downloader {
     }
 
     public static function downloadIvodsDetail($ivods) {
-        $ivods = array_filter($ivods, function ($ivod) {
-            return in_array('gazette', $ivod->features);
-        });
         $total_cnt = count($ivods);
         $cnt = 0;
         foreach ($ivods as $ivod) {
@@ -40,7 +37,7 @@ class Downloader {
         }
     }
 
-    public static function getDetailedIvodList() {
+    public static function getDetailedIvodList($skip_no_gazette=true) {
         $filenames = scandir('json/single/');
         $filenames = array_slice($filenames, 2);
         //$filenames = ['150839.json']; //測試確認單一 ivod 資料用
@@ -48,6 +45,9 @@ class Downloader {
         foreach ($filenames as $filename) {
             $filepath = "json/single/$filename";
             $content = json_decode(file_get_contents($filepath));
+            if ($skip_no_gazette and is_null($content->gazette)) {
+                continue;
+            }
             $detailed_ivods[] = $content;
         }
         return $detailed_ivods;

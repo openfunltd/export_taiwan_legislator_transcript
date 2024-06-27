@@ -15,10 +15,11 @@ class Exporter {
 
         $ivod_cnt = count($detailed_ivods);
         $batch_size = 100; //批次寫入
+        $distinct_meet_names = [];
         for ($i=0; $i < $ivod_cnt; $i = $i + $batch_size) {
             $batch_detailed_ivods = array_slice($detailed_ivods, $i, $batch_size);
             if ($output_type == 'comparison') {
-                $csv_rows = Parser::parseDigestComparison($batch_detailed_ivods);
+                [$csv_rows, $distinct_meet_names] = Parser::parseDigestComparison($batch_detailed_ivods, $distinct_meet_names);
             } else {
                 $csv_rows = Parser::parseHuggingFaceData($batch_detailed_ivods);
             }
