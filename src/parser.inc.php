@@ -1,7 +1,7 @@
 <?php
 
 class Parser {
-    public static function parseData($ivods) {
+    public static function parseHuggingFaceData($ivods) {
         $csv_rows = [];
         foreach ($ivods as $idx => $ivod) {
             //echo "$idx parsing ivod_id: $ivod->id" . "\n";
@@ -18,6 +18,29 @@ class Parser {
             $row[] = substr($ivod->end_time, 11, 8); //發言開始時間（10:24:33）
             $row[] = $ivod->gazette->agenda->content; //公報章節名稱（可以知道這是報告事項還是國是論壇之類的）
             $row[] = self::getBlockContents($ivod); //發言內容
+            $csv_rows[] = $row;
+        }
+        return $csv_rows;
+    }
+
+    public static function parseDigestComparison($ivods) {
+        $csv_rows = [];
+        $distinct_meet_names = [];
+        foreach ($ivods as $idx => $ivod) {
+            $meet_name = $ivod->會議名稱;
+            if (in_array($meet_name, $distinct_meet_names)) {
+                break;
+            }
+            $distinct_meet_names[] = $meet_name;
+
+            //echo "$idx parsing ivod_id: $ivod->id" . "\n";
+            $row = [];
+            $row[] = $ivod->id; //ivod id
+            $row[] = $meet_name; //original meet name
+
+            $subjects = self::getSubjects($ivod);
+            $row[] = implode("\n", self::digestSubjects($subjects)); //事由（精簡後的版本）
+
             $csv_rows[] = $row;
         }
         return $csv_rows;

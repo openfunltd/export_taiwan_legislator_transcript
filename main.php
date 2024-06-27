@@ -6,6 +6,7 @@ include 'src/exporter.inc.php';
 
 $term = 11;
 $session_period = 1;
+$output_type = 'comparison';
 
 //下列三個 process 建議分開執行，不然會出現記憶體被消耗光的 error
 //因為不想浪費時間在解決記憶體的問題，所以建議先人工分開執行
@@ -20,4 +21,4 @@ $session_period = 1;
 
 //process3
 $detailed_ivods = Downloader::getDetailedIvodList(); //取得含公報資訊的 ivod 資料
-Exporter::exportCSV($detailed_ivods, "$term-$session_period.csv");
+Exporter::exportCSV($detailed_ivods, $output_type . "_$term-$session_period.csv", $output_type);
