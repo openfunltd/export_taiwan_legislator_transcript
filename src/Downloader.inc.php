@@ -58,12 +58,13 @@ class Downloader {
 
     private static function downloadSingleIvod($ivod_id, $term, $session_period) {
         $url = "https://ly.govapi.tw/ivod/$ivod_id?with_gazette=1";
-        $ch = curl_init();
-        curl_setopt($ch , CURLOPT_URL , $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $res = curl_exec($ch);
+        $ch = curl_init($url);
+        $fp = fopen("json/$term-$session_period/single/$ivod_id.json", 'w');
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
         curl_close($ch);
-        file_put_contents("json/$term-$session_period/single/$ivod_id.json", $res);
+        fclose($fp);
     }
 
     private static function paginationDownload($page, $url, $target_dir) {

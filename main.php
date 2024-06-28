@@ -17,8 +17,8 @@ $skip_no_gazette = ($output_type != 'comparison');
 //下列三個 process 建議分開執行，不然會出現記憶體被消耗光的 error
 //因為不想浪費時間在解決記憶體的問題，所以建議先人工分開執行
 
+Initialer::initalizeProject($term, $session_period); //建立 json 資料夾
 //process1
-//Initialer::initalizeProject($term, $session_period); //建立 json 資料夾
 //Downloader::downloadIvods($term, $session_period); //下載 ivod 清單到 json/list/
 
 //process2
