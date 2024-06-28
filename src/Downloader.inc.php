@@ -13,7 +13,7 @@ class Downloader {
         $target_dir = "json/$term-$session_period";
         file_put_contents("$target_dir/list/page1.json", $res);
         for ($page = 2; $page <= $data->total_page; $page++) {
-            echo "Downloading page $page..." . "\n";
+            echo "Downloading page $page/" . $data->total_page . " ...\n";
             self::paginationDownload($page, $url, $target_dir);
         }
     }
