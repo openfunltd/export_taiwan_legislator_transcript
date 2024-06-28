@@ -2,10 +2,11 @@
 
 class OptionReceiver {
     public static function getOptions() {
-        $options = getopt('t:', ['sp:', 'output_type:']);
+        $options = getopt('t:', ['sp:', 'output_type:', 'refresh']);
         $term = (array_key_exists('t', $options)) ? intval($options['t']) : null;
         $session_period = (array_key_exists('sp', $options)) ? $options['sp'] : null;
         $output_type = (array_key_exists('output_type', $options)) ? $options['output_type'] : null;
+        $is_refresh = (array_key_exists('refresh', $options)) ? true : false;
         $err_msg = null;
     
         if (is_null($term) or is_null($session_period)) {
@@ -17,6 +18,6 @@ class OptionReceiver {
             $err_msg = "Valid arguments of output_type are 'hf', 'comparison'\n";
         }
 
-        return [$term, $session_period, $output_type, $err_msg];
+        return [$term, $session_period, $output_type, $is_refresh, $err_msg];
     }
 }

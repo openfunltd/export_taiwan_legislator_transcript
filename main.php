@@ -5,7 +5,7 @@ include 'src/Downloader.inc.php';
 include 'src/parser.inc.php';
 include 'src/exporter.inc.php';
 
-[$term, $session_period, $output_type, $err_msg] = OptionReceiver::getOptions();
+[$term, $session_period, $output_type, $is_refresh, $err_msg] = OptionReceiver::getOptions();
 
 if (isset($err_msg)) {
     echo $err_msg;
