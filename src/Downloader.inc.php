@@ -30,11 +30,13 @@ class Downloader {
     public static function downloadIvodsDetail($ivods) {
         $total_cnt = count($ivods);
         $cnt = 0;
+        $term = $ivods[0]->meet->term;
+        $session_period = $ivods[0]->meet->sessionPeriod;
         foreach ($ivods as $ivod) {
             $cnt++;
             $ivod_id = $ivod->id;
             echo "($cnt/$total_cnt) Downloading detailed ivod data... ivod_id: $ivod_id" . "\n";
-            self::downloadSingleIvod($ivod_id);
+            self::downloadSingleIvod($ivod_id, $term, $session_period);
         }
     }
 
@@ -54,14 +56,14 @@ class Downloader {
         return $detailed_ivods;
     }
 
-    private static function downloadSingleIvod($ivod_id) {
+    private static function downloadSingleIvod($ivod_id, $term, $session_period) {
         $url = "https://ly.govapi.tw/ivod/$ivod_id?with_gazette=1";
         $ch = curl_init();
         curl_setopt($ch , CURLOPT_URL , $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $res = curl_exec($ch);
         curl_close($ch);
-        file_put_contents("json/single/$ivod_id.json", $res);
+        file_put_contents("json/$term-$session_period/single/$ivod_id.json", $res);
     }
 
     private static function paginationDownload($page, $url, $target_dir) {
