@@ -71,7 +71,7 @@ class Downloader {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $res = curl_exec($ch);
         curl_close($ch);
-        file_put_contents("$target_dir/page$page.json", $res);
+        file_put_contents("$target_dir/list/page$page.json", $res);
     }
 
     private static function getPaginationIvodList($filename, $justIvods = true) {
