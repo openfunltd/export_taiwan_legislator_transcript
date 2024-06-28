@@ -10,10 +10,11 @@ class Downloader {
         curl_close($ch);
         $data = json_decode($res);
         echo 'There are total ' . $data->total->value . " ivods within " . $data->total_page . " pages\n";
-        file_put_contents('json/list/page1.json', $res);
+        $target_dir = "json/$term-$session_period";
+        file_put_contents("$target_dir/list/page1.json", $res);
         for ($page = 2; $page <= $data->total_page; $page++) {
             echo "Downloading page $page..." . "\n";
-            self::paginationDownload($page, $url);
+            self::paginationDownload($page, $url, $target_dir);
         }
     }
 
@@ -63,14 +64,14 @@ class Downloader {
         file_put_contents("json/single/$ivod_id.json", $res);
     }
 
-    private static function paginationDownload($page, $url) {
+    private static function paginationDownload($page, $url, $target_dir) {
         $url = $url . "&page=$page";
         $ch = curl_init();
         curl_setopt($ch , CURLOPT_URL , $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $res = curl_exec($ch);
         curl_close($ch);
-        file_put_contents("json/list/page$page.json", $res);
+        file_put_contents("$target_dir/page$page.json", $res);
     }
 
     private static function getPaginationIvodList($filename, $justIvods = true) {
