@@ -18,11 +18,11 @@ class Downloader {
         }
     }
 
-    public static function getIvodList() {
-        $content = self::getPaginationIvodList('page1.json', false);
+    public static function getIvodList($term, $session_period) {
+        $content = self::getPaginationIvodList($term, $session_period, 'page1.json', false);
         $ivods = $content->ivods;
         for ($page = 2; $page <= $content->total_page; $page++) {
-            $ivods = array_merge($ivods, self::getPaginationIvodList("page$page.json"));
+            $ivods = array_merge($ivods, self::getPaginationIvodList($term, $session_period, "page$page.json"));
         }
         return $ivods;
     }
@@ -74,8 +74,8 @@ class Downloader {
         file_put_contents("$target_dir/list/page$page.json", $res);
     }
 
-    private static function getPaginationIvodList($filename, $justIvods = true) {
-        $filepath = "json/list/$filename";
+    private static function getPaginationIvodList($term, $session_period, $filename, $justIvods = true) {
+        $filepath = "json/$term-$session_period/list/$filename";
         $content = json_decode(file_get_contents($filepath));
         if ($justIvods) {
             return $content->ivods;
