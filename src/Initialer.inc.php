@@ -12,7 +12,7 @@ class Initialer {
         if (! file_exists($target_dir)) {
             mkdir($target_dir);
         }
-        if (! file_exists("$taget_dir/list")) {
+        if (! file_exists("$target_dir/list")) {
             mkdir("$target_dir/list");
         }
         if (! file_exists("$target_dir/single")) {
