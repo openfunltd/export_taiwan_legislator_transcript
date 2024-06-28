@@ -18,8 +18,8 @@ $skip_no_gazette = ($output_type != 'comparison');
 //因為不想浪費時間在解決記憶體的問題，所以建議先人工分開執行
 
 //process1
-//Initialer::initalizeProject(); //建立 json 資料夾
-//Downloader::downloadIvods($term, $session_period); //下載 ivod 清單到 json/list/
+Initialer::initalizeProject($term, $session_period); //建立 json 資料夾
+Downloader::downloadIvods($term, $session_period); //下載 ivod 清單到 json/list/
 
 //process2
 //$ivods = Downloader::getIvodList(); //透過 json/list/*.json 取得 ivod 清單
