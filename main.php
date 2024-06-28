@@ -1,7 +1,7 @@
 <?php
 include 'src/OptionReceiver.inc.php';
 include 'src/Initialer.inc.php';
-include 'src/downloader.inc.php';
+include 'src/Downloader.inc.php';
 include 'src/parser.inc.php';
 include 'src/exporter.inc.php';
 
