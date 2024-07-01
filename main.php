@@ -19,11 +19,11 @@ $skip_no_gazette = ($output_type != 'comparison');
 
 Initialer::initalizeProject($term, $session_period); //建立 json 資料夾
 //process1
-//Downloader::downloadIvods($term, $session_period); //下載 ivod 清單到 json/list/
+Downloader::downloadIvods($term, $session_period); //下載 ivod 清單到 json/list/
 
 //process2
 $ivods = Downloader::getIvodList($term, $session_period); //透過 json/list/*.json 取得 ivod 清單
-Downloader::downloadIvodsDetail($ivods); //下載單一 ivod 資料（with_gazette=1）到 /json/single
+Downloader::downloadIvodsDetail($ivods, $is_refresh); //下載單一 ivod 資料（with_gazette=1）到 /json/single
 
 //process3
 //$detailed_ivods = Downloader::getDetailedIvodList($skip_no_gazette); //取得含公報資訊的 ivod 資料

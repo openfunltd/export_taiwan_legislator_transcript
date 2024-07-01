@@ -27,11 +27,22 @@ class Downloader {
         return $ivods;
     }
 
-    public static function downloadIvodsDetail($ivods) {
-        $total_cnt = count($ivods);
-        $cnt = 0;
+    public static function downloadIvodsDetail($ivods, $is_refresh) {
         $term = $ivods[0]->meet->term;
         $session_period = $ivods[0]->meet->sessionPeriod;
+        if (! $is_refresh) {
+            $existing_files = scandir("json/$term-$session_period/single/");
+            $fresh_ivods = [];
+            foreach ($ivods as $ivod) {
+                $ivod_id = $ivod->id;
+                if (! in_array("$ivod_id.json", $existing_files)) {
+                    $fresh_ivods[] = $ivod;
+                }
+            }
+            $ivods = $fresh_ivods;
+        }
+        $total_cnt = count($ivods);
+        $cnt = 0;
         foreach ($ivods as $ivod) {
             $cnt++;
             $ivod_id = $ivod->id;
