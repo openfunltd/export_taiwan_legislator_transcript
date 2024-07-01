@@ -5,7 +5,7 @@ class OptionReceiver {
         $options = getopt('t:', ['sp:', 'output_type:', 'refresh']);
         $term = (array_key_exists('t', $options)) ? intval($options['t']) : null;
         $session_period = (array_key_exists('sp', $options)) ? $options['sp'] : null;
-        $output_type = (array_key_exists('output_type', $options)) ? $options['output_type'] : null;
+        $output_type = (array_key_exists('output_type', $options)) ? $options['output_type'] : 'hf';
         $is_refresh = (array_key_exists('refresh', $options)) ? true : false;
         $err_msg = null;
     
