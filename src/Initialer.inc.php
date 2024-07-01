@@ -2,6 +2,9 @@
 
 class Initialer {
     public static function initalizeProject($term, $session_period) {
+        if (! file_exists('log')) {
+            mkdir('log');
+        }
         if (! file_exists('json')) {
             mkdir('json');
         }
