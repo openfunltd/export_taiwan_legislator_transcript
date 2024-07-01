@@ -51,13 +51,13 @@ class Downloader {
         }
     }
 
-    public static function getDetailedIvodList($skip_no_gazette=true) {
-        $filenames = scandir('json/single/');
+    public static function getDetailedIvodList($term, $session_period, $skip_no_gazette=true) {
+        $filenames = scandir("json/$term-$session_period/single/");
         $filenames = array_slice($filenames, 2);
         //$filenames = ['150839.json']; //測試確認單一 ivod 資料用
         $detailed_ivods = [];
         foreach ($filenames as $filename) {
-            $filepath = "json/single/$filename";
+            $filepath = "json/$term-$session_period/single/$filename";
             $content = json_decode(file_get_contents($filepath));
             if ($skip_no_gazette and is_null($content->gazette)) {
                 continue;

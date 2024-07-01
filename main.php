@@ -26,5 +26,5 @@ $ivods = Downloader::getIvodList($term, $session_period); //透過 json/list/*.j
 Downloader::downloadIvodsDetail($ivods, $is_refresh); //下載單一 ivod 資料（with_gazette=1）到 /json/single
 
 //process3
-$detailed_ivods = Downloader::getDetailedIvodList($skip_no_gazette); //取得含公報資訊的 ivod 資料
-Exporter::exportCSV($detailed_ivods, $output_type . "_$term-$session_period.csv", $output_type);
+$detailed_ivods = Downloader::getDetailedIvodList($term, $session_period, $skip_no_gazette); //取得含公報資訊的 ivod 資料
+Exporter::exportCSV($detailed_ivods, "csv/" . $output_type . "_$term-$session_period.csv", $output_type);
