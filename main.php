@@ -2,8 +2,8 @@
 include 'src/OptionReceiver.inc.php';
 include 'src/Initialer.inc.php';
 include 'src/Downloader.inc.php';
-include 'src/parser.inc.php';
-include 'src/exporter.inc.php';
+include 'src/Parser.inc.php';
+include 'src/Exporter.inc.php';
 
 [$term, $session_period, $output_type, $is_refresh, $err_msg] = OptionReceiver::getOptions();
 
@@ -26,5 +26,5 @@ $ivods = Downloader::getIvodList($term, $session_period); //透過 json/list/*.j
 Downloader::downloadIvodsDetail($ivods, $is_refresh); //下載單一 ivod 資料（with_gazette=1）到 /json/single
 
 //process3
-//$detailed_ivods = Downloader::getDetailedIvodList($skip_no_gazette); //取得含公報資訊的 ivod 資料
-//Exporter::exportCSV($detailed_ivods, $output_type . "_$term-$session_period.csv", $output_type);
+$detailed_ivods = Downloader::getDetailedIvodList($skip_no_gazette); //取得含公報資訊的 ivod 資料
+Exporter::exportCSV($detailed_ivods, $output_type . "_$term-$session_period.csv", $output_type);
